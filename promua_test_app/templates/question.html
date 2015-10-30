@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{{ g.question.title }}</h1>
+    <span>{{ g.question.content }}</span>
+    <hr>
+    {% if g.question.answers %}
+        <h3>Answers</h3>
+    {% else %}
+        <h3>There's no answers yet. Be first !</h3>
+    {% endif %}
+    {% for answer in g.question.answers %}
+    <div>
+        <small class="text-muted"><span class="glyphicon glyphicon-user sm"></span> {{ answer.author.username }}
+        {% if answer.rating > 0 %}
+        <span class="text-success">+{{ answer.rating }}</span>
+        {% elif answer.rating == 0 %}
+        <span>{{ answer.rating }}</span>
+        {% else %}
+        <span class="text-danger">{{ answer.rating }}</span>
+        {% endif %}
+        </small>
+        <p>{{ answer.content }}</p>
+        {% if g.current_user.is_authenticated and not answer in g.current_user.answers and not g.current_user.voted_for(answer.id) %}
+        <p>
+            <a href="{{ url_for("IndexView:rate_answer", id_=answer.id, action="up") }}">
+                <span class="glyphicon glyphicon-thumbs-up text-success"></span>
+            </a>
+            <a href="{{ url_for("IndexView:rate_answer", id_=answer.id, action="down") }}">
+                <span class="glyphicon glyphicon-thumbs-down text-danger"></span>
+            </a>
+        </p>
+        {% endif %}
+        <hr>
+        </div>
+    {% endfor %}
+    {% if g.answer_form %}
+        <form action="{{ url_for("IndexView:show_question", id_=request.view_args.get("id_")) }}" method="post">
+            {{ g.answer_form.csrf_token }}
+            <div class="form-group">
+            <label for="exampleInputPassword1">Your answer</label>
+            {{ g.answer_form.content(class_="form-control", rows="5") }}
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+    {% endif %}
+{% endblock %}

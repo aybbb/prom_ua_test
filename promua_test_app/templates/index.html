@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for question in g.questions %}
+    <div class="media">
+        <div class="media-left media-top text-center">
+            <span class="label label-info"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;{{ question.answers_count }}</span>
+        </div>
+        <div class="media-body">
+            <a href="{{ url_for("IndexView:show_question", id_=question.id) }}"><h4 class="media-heading">{{ question.title }}</h4></a>
+            <small><span class="glyphicon glyphicon-user sm"></span> {{ question.author.username }}</small>
+        </div>
+    </div>
+    {% endfor %}
+
+
+{% endblock %}

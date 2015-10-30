@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>PROM UA TEST</title>
+    {% block css %}
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/bootstrap-theme.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/additional.css") }}">
+    {% endblock %}
+
+    {% block js %}
+    <script src="{{ url_for("static", filename="js/jquery-1.11.3.js") }}"></script>
+    <script src="{{ url_for("static", filename="js/bootstrap.js") }}"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            {% if not g.current_user.is_authenticated %}
+            <li role="presentation"><a href="{{ url_for("UserView:login") }}">Sign In</a></li>
+            <li role="presentation"><a href="{{ url_for("UserView:registration") }}">Register</a></li>
+            {% else %}
+            <li role="presentation"><a href="{{ url_for("IndexView:create_question") }}">Ask</a> </li>
+            <li role="presentation"><a href="{{ url_for("UserView:logout") }}">Logout</a> </li>
+            {% endif %}
+          </ul>
+        </nav>
+        <h3 class="text-muted"><a href="{{ url_for("IndexView:get") }}">Test for prom.ua</a></h3>
+      </div>
+{% block content %}
+{% endblock %}
+<footer class="footer">
+<p>&copy; Andrey Bobrovskiy 2015</p>
+</footer>
+</div>
+</body>
+</html>

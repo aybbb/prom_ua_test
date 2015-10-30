@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "macros/form_errors.html" import form_errors %}
+    {% block content %}
+        <div class="container">
+            <form class="form-signin" action="{{ url_for("UserView:login") }}" method="post">
+                {{ form.csrf_token }}
+                {{ form_errors(form) }}
+                <h2 class="form-signin-heading">Sign In</h2>
+                <label for="username" class="sr-only">Username</label>
+                {{ form.username(class_="form-control", placeholder="Username") }}
+                <label for="password" class="sr-only">Password</label>
+                {{ form.password(class_="form-control", placeholder="Password") }}
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+            </form>
+        </div>
+{% endblock %}

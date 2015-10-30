@@ -25,7 +25,7 @@ def setup_db():
     session.commit()
 
     for _ in range(10):
-        question = Question(lorem.paragraph(1), lorem.paragraphs(10))
+        question = Question(lorem.paragraph(2), lorem.paragraphs(10))
         question.author = choice(users)
         questions.append(question)
 
@@ -33,8 +33,8 @@ def setup_db():
     session.commit()
 
     for q in questions:
-        for _ in range(choice([2, 10])):
-            answer = Answer(lorem.sentence(3))
+        for _ in range(choice(range(10))):
+            answer = Answer(lorem.sentence(10))
             answer.author = choice(users)
             answer.question = q
             answers.append(answer)

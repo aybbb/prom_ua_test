@@ -17,10 +17,10 @@ app.template_folder = "promua_test_app/templates"
 app.static_folder = "promua_test_app/static"
 # register handlers
 app.before_request(before_request)
-app.teardown_request(teardown_app_context)
+app.teardown_appcontext(teardown_app_context)
 # register views
 IndexView.register(app)
 UserView.register(app)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="176.110.58.145", port=7114)

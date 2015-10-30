@@ -23,4 +23,4 @@ IndexView.register(app)
 UserView.register(app)
 
 if __name__ == '__main__':
-    app.run(host="176.110.58.145", port=7114)
+    app.run()
